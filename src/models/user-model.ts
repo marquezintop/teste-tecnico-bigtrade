@@ -4,7 +4,6 @@ import {
 } from 'mongoose'
 import { ObjectId } from 'mongodb'
 import { PublicUser, UserView } from '../interfaces/user-interface'
-import { hash } from '../utils/hash'
 
 export default class UserModel {
   private schema: Schema
@@ -28,13 +27,6 @@ export default class UserModel {
           required: true,
         },
       },
-      {
-        toJSON: {
-          transform(doc, ret) {
-            delete ret.password
-          },
-        },
-      },
     )
 
     this.model = model<UserView>('users', this.schema)
@@ -44,11 +36,18 @@ export default class UserModel {
     return this.model.findOne({ email })
   }
 
-  public async getUserById(id: ObjectId): Promise<PublicUser | null> {
+  public getUserById(id: ObjectId): Promise<PublicUser | null> {
     return this.model.findById(id)
   }
 
   public createUser(user: UserView): Promise<PublicUser> {
-    return this.model.create({ ...user, password: hash(user.password) })
+    return this.model.create(user)
+  }
+
+  public async putUserById(id: ObjectId, user: UserView) {
+    await this.model.updateOne(
+      { _id: id },
+      { $set: user },
+    )
   }
 }

@@ -39,4 +39,23 @@ export default class UserController {
       return res.status(500).send({ error: 'Internal Server Error' })
     }
   }
+
+  public async putUserById(req: Request, res: Response): Promise<Response> {
+    try {
+      const { body } = req
+      const { id } = req.params
+
+      await this.userService.findUserById(id)
+
+      const user = await this.userService.updateUserById(id, body)
+
+      return res.status(200).send(user)
+    } catch (error) {
+      if (error instanceof InvalidIdError) {
+        return res.status(404).send({ error: error.message })
+      }
+
+      return res.status(500).send({ error: 'Internal Server Error' })
+    }
+  }
 }
