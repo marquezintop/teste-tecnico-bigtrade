@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node build/run-app.js",
-    "dev": "nodemon -r src/run-app.ts"
+    "dev": "nodemon -r dotenv/config src/index.ts",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "author": "",
   "license": "ISC",
