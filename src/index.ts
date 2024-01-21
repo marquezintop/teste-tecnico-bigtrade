@@ -1,11 +1,14 @@
 import express from 'express'
 import { connectToDatabase } from './config/connection'
+import authRouter from './routes/auth-route'
 
 const app = express()
 
 app.use(express.json())
 
 const PORT = process.env.PORT || 3000
+
+app.use(authRouter)
 
 connectToDatabase()
 
