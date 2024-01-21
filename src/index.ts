@@ -1,13 +1,16 @@
-import express from 'express';
+import express from 'express'
+import { connectToDatabase } from './config/connection'
 
-const app = express();
+const app = express()
 
-app.use(express.json());
+app.use(express.json())
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000
+
+connectToDatabase()
 
 const server = app.listen(PORT, () => console.log(
   `Server is running on PORT: ${PORT}`,
-));
+))
 
-export default server;
+export default server
