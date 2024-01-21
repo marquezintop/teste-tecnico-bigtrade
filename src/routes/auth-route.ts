@@ -6,9 +6,9 @@ import { createUserSchema } from '../schemas/create-user-schema'
 const authRouter = express.Router()
 const authController = new AuthController()
 
-authRouter.use('/v1/auth', validateSchema(createUserSchema))
+authRouter.use('/users', validateSchema(createUserSchema))
 
-authRouter.post('/v1/auth', async (req, res) => {
+authRouter.post('/users', async (req, res) => {
   await authController.createUser(req, res)
 })
 
