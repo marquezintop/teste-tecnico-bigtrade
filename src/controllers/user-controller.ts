@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
-import { EmailAlreadyUsedError } from '../errors/index'
+import { EmailAlreadyUsedError, InvalidIdError } from '../errors/index'
 import UserService from '../services/user-service'
 
-export default class AuthController {
+export default class UserController {
   constructor(
     private userService = new UserService(),
   ) {}
@@ -20,6 +20,22 @@ export default class AuthController {
       }
 
       console.log(error)
+      return res.status(500).send({ error: 'Internal Server Error' })
+    }
+  }
+
+  public async getUserById(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params
+
+      const user = await this.userService.findUserById(id)
+
+      return res.status(200).send(user)
+    } catch (error) {
+      if (error instanceof InvalidIdError) {
+        return res.status(404).send({ error: error.message })
+      }
+
       return res.status(500).send({ error: 'Internal Server Error' })
     }
   }

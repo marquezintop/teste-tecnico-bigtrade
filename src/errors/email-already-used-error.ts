@@ -1,5 +1,5 @@
 class EmailAlreadyUsedError extends Error {
-  constructor(message: string = 'Email is already in use') {
+  constructor(message: string = 'Email is already in use.') {
     super(message)
     this.name = 'EmailAlreadyUsedError'
   }

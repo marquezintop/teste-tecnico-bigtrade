@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/return-await */
 import {
-  Model, Schema, model, models,
+  Model, Schema, model,
 } from 'mongoose'
+import { ObjectId } from 'mongodb'
 import { PublicUser, UserView } from '../interfaces/user-interface'
 import { hash } from '../utils/hash'
 
@@ -36,14 +37,14 @@ export default class UserModel {
       },
     )
 
-    this.model = models.Users || model<UserView>('users', this.schema)
+    this.model = model<UserView>('users', this.schema)
   }
 
   public getUserByEmail(email: string): Promise<PublicUser | null> {
     return this.model.findOne({ email })
   }
 
-  public getUserById(id: string): Promise<PublicUser | null> {
+  public async getUserById(id: ObjectId): Promise<PublicUser | null> {
     return this.model.findById(id)
   }
 
