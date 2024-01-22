@@ -1,6 +1,6 @@
 import { isValidObjectId } from 'mongoose'
 import { ObjectId } from 'mongodb'
-import { EmailAlreadyUsedError, InvalidIdError } from '../errors/index'
+import { EmailAlreadyUsedError, UserNotFoundError } from '../errors/index'
 import { User, UserView } from '../interfaces/user-interface'
 import UserModel from '../models/user-model'
 
@@ -25,14 +25,20 @@ export default class UserService {
     return users
   }
 
-  public async getById(id: string): Promise<User> {
-    if (!isValidObjectId(id)) throw new InvalidIdError()
+  public async verifyUserExistenceById(id: string) {
+    if (!isValidObjectId(id)) throw new UserNotFoundError()
 
     const objectId = new ObjectId(id)
 
     const user = await this.userModel.findById(objectId)
 
-    if (!user) throw new InvalidIdError()
+    if (!user) throw new UserNotFoundError()
+  }
+
+  public async getById(id: string) {
+    const objectId = new ObjectId(id)
+
+    const user = await this.userModel.findById(objectId)
 
     return user
   }
@@ -44,7 +50,7 @@ export default class UserService {
 
     const user = await this.userModel.findById(objectId)
 
-    if (!user) throw new InvalidIdError()
+    if (!user) throw new UserNotFoundError()
 
     return user
   }

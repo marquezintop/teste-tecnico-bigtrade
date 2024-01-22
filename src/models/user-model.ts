@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/return-await */
 import {
   Model, Schema, model,
 } from 'mongoose'
