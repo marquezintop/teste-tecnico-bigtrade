@@ -3,7 +3,7 @@ import {
   Model, Schema, model,
 } from 'mongoose'
 import { ObjectId } from 'mongodb'
-import { PublicUser, UserView } from '../interfaces/user-interface'
+import { UserView } from '../interfaces/user-interface'
 
 export default class UserModel {
   private schema: Schema
@@ -32,22 +32,30 @@ export default class UserModel {
     this.model = model<UserView>('users', this.schema)
   }
 
-  public getUserByEmail(email: string): Promise<PublicUser | null> {
-    return this.model.findOne({ email })
-  }
-
-  public getUserById(id: ObjectId): Promise<PublicUser | null> {
-    return this.model.findById(id)
-  }
-
-  public createUser(user: UserView): Promise<PublicUser> {
+  public create(user: UserView) {
     return this.model.create(user)
   }
 
-  public async putUserById(id: ObjectId, user: UserView) {
+  public findAll() {
+    return this.model.find()
+  }
+
+  public findOneByEmail(email: string) {
+    return this.model.findOne({ email })
+  }
+
+  public findById(id: ObjectId) {
+    return this.model.findById(id)
+  }
+
+  public async updateOne(id: ObjectId, user: UserView) {
     await this.model.updateOne(
       { _id: id },
       { $set: user },
     )
+  }
+
+  public async deleteOne(id: ObjectId) {
+    await this.model.deleteOne(id)
   }
 }

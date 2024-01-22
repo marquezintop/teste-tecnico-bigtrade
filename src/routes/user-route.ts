@@ -7,8 +7,10 @@ import { updateUserSchema } from '../schemas/update-user-schema'
 const userRouter = Router()
 const userController = new UserController()
 
-userRouter.post('/users', validateSchema(createUserSchema), (req: Request, res: Response) => userController.createUser(req, res))
-userRouter.get('/users/:id', (req: Request, res: Response) => userController.getUserById(req, res))
-userRouter.put('/users/:id', validateSchema(updateUserSchema), (req: Request, res: Response) => userController.putUserById(req, res))
+userRouter.post('/users', validateSchema(createUserSchema), (req: Request, res: Response) => userController.create(req, res))
+userRouter.get('/users', (req: Request, res: Response) => userController.getAll(req, res))
+userRouter.get('/users/:id', (req: Request, res: Response) => userController.getById(req, res))
+userRouter.put('/users/:id', validateSchema(updateUserSchema), (req: Request, res: Response) => userController.updateById(req, res))
+userRouter.delete('/users/:id', (req: Request, res: Response) => userController.deleteById(req, res))
 
 export default userRouter

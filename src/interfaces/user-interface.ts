@@ -9,6 +9,4 @@ interface User {
 
 interface UserView extends Omit<User, 'id'> {}
 
-interface PublicUser extends Omit<User, 'password'> {}
-
-export { User, UserView, PublicUser }
+export { User, UserView }
