@@ -3,7 +3,7 @@ import {
 } from 'mongoose'
 import dayjs from 'dayjs'
 import { ObjectId } from 'mongodb'
-import { PostCreateView, PostView } from '../interfaces/post-interface'
+import { PostCreateView, PostUpdateView, PostView } from '../interfaces/post-interface'
 
 export default class PostModel {
   private schema: Schema
@@ -54,5 +54,16 @@ export default class PostModel {
 
   public findById(id: ObjectId) {
     return this.model.findById(id)
+  }
+
+  public async updateOne(id: ObjectId, post: PostUpdateView) {
+    await this.model.updateOne(
+      { _id: id },
+      { $set: post },
+    )
+  }
+
+  public async deleteOne(id: ObjectId) {
+    await this.model.deleteOne(id)
   }
 }

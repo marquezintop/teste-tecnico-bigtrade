@@ -50,4 +50,41 @@ export default class PostController {
       return res.status(500).send({ error: 'Internal Server Error' })
     }
   }
+
+  public async updateById(req: Request, res: Response): Promise<Response> {
+    try {
+      const { body } = req
+      const { id } = req.params
+
+      await this.postService.verifyPostExistenceById(id)
+
+      const post = await this.postService.updateById(id, body)
+
+      return res.status(200).send(post)
+    } catch (error) {
+      if (error instanceof PostNotFoundError) {
+        return res.status(404).send({ error: error.message })
+      }
+
+      return res.status(500).send({ error: 'Internal Server Error' })
+    }
+  }
+
+  public async deleteById(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params
+
+      await this.postService.verifyPostExistenceById(id)
+
+      await this.postService.deleteById(id)
+
+      return res.sendStatus(200)
+    } catch (error) {
+      if (error instanceof UserNotFoundError) {
+        return res.status(404).send({ error: error.message })
+      }
+
+      return res.status(500).send({ error: 'Internal Server Error' })
+    }
+  }
 }

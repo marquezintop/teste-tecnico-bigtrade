@@ -13,4 +13,8 @@ interface PostView extends Omit<Post, 'id'> {}
 
 interface PostCreateView extends Omit<PostView, 'published' | 'updated'> {}
 
-export { Post, PostView, PostCreateView }
+interface PostUpdateView extends Omit<PostCreateView, 'userId' > {}
+
+export {
+  Post, PostView, PostCreateView, PostUpdateView,
+}
