@@ -9,12 +9,15 @@ interface Post {
   updated: string;
 }
 
+interface UpdatePostView {
+  title?: string;
+  content?: string;
+}
+
 interface PostView extends Omit<Post, '_id'> {}
 
 interface PostCreateView extends Omit<PostView, 'published' | 'updated'> {}
 
-interface PostUpdateView extends Omit<PostCreateView, 'userId' > {}
-
 export {
-  Post, PostView, PostCreateView, PostUpdateView,
+  Post, PostView, PostCreateView, UpdatePostView,
 }

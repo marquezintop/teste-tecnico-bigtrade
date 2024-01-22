@@ -1,5 +1,9 @@
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+import UserModel from '../../src/models/user-model'
+import PostModel from '../../src/models/post-model'
+import UserService from '../../src/services/user-service'
+import PostService from '../../src/services/post-service'
 
 dotenv.config({ path: '.env.test' })
 
@@ -25,6 +29,11 @@ const {
 
 const url: string = `mongodb://${user}:${password}@${host}:${port}/${dbName}?authSource=admin`
 
+const userModel = new UserModel()
+const postModel = new PostModel()
+const userService = new UserService(userModel)
+const postService = new PostService(postModel, userService)
+
 async function connectToDatabase(): Promise<void> {
   try {
     await mongoose.connect(url)
@@ -36,7 +45,7 @@ async function connectToDatabase(): Promise<void> {
 
 async function disconnectFromDatabase(): Promise<void> {
   try {
-    await mongoose.disconnect()
+    await mongoose.connection.close()
     console.log('Disconnected from the database')
   } catch (error) {
     console.error('Error disconnecting from the database:', error)
@@ -44,14 +53,21 @@ async function disconnectFromDatabase(): Promise<void> {
 }
 
 async function cleanDb(): Promise<void> {
-  const { collections } = mongoose.connection
-  const collectionsArray = Object.values(collections)
-
-  collectionsArray.forEach(async (collection) => {
-    await Promise.all([collection.deleteMany({})])
-  })
-
-  console.log('Database cleaned')
+  try {
+    await userModel.deleteMany()
+    await postModel.deleteMany()
+    console.log('DB cleaned')
+  } catch (error) {
+    console.error('Error cleaning collections from the database:', error)
+  }
 }
 
-export { connectToDatabase, disconnectFromDatabase, cleanDb }
+export {
+  connectToDatabase,
+  disconnectFromDatabase,
+  cleanDb,
+  userModel,
+  postModel,
+  userService,
+  postService,
+}

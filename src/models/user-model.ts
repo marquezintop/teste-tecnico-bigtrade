@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/return-await */
 import {
   Model, Schema, model,
 } from 'mongoose'
-import { ObjectId } from 'mongodb'
 import { UpdateUserView, UserView } from '../interfaces/user-interface'
 
 export default class UserModel {
@@ -31,30 +31,34 @@ export default class UserModel {
     this.model = model<UserView>('users', this.schema)
   }
 
-  public create(user: UserView) {
-    return this.model.create(user)
+  public async create(user: UserView) {
+    return await this.model.create(user)
   }
 
-  public findAll() {
-    return this.model.find()
+  public async findAll() {
+    return await this.model.find()
   }
 
-  public findOneByEmail(email: string) {
-    return this.model.findOne({ email })
+  public async findOneByEmail(email: string) {
+    return await this.model.findOne({ email })
   }
 
-  public findById(id: ObjectId) {
-    return this.model.findById(id)
+  public async findById(id: string) {
+    return await this.model.findById(id)
   }
 
-  public async updateOne(id: ObjectId, user: UpdateUserView) {
+  public async updateOne(id: string, user: UpdateUserView) {
     await this.model.updateOne(
       { _id: id },
       { $set: user },
     )
   }
 
-  public async deleteOne(id: ObjectId) {
-    await this.model.deleteOne(id)
+  public async deleteOne(id: string) {
+    await this.model.deleteOne({ _id: id })
+  }
+
+  public async deleteMany() {
+    await this.model.deleteMany({})
   }
 }

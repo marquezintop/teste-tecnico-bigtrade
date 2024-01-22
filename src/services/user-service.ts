@@ -1,7 +1,6 @@
 import { isValidObjectId } from 'mongoose'
-import { ObjectId } from 'mongodb'
 import { EmailAlreadyUsedError, UserNotFoundError } from '../errors/index'
-import { User, UserView } from '../interfaces/user-interface'
+import { UpdateUserView, User, UserView } from '../interfaces/user-interface'
 import UserModel from '../models/user-model'
 
 export default class UserService {
@@ -28,36 +27,28 @@ export default class UserService {
   public async verifyUserExistenceById(id: string) {
     if (!isValidObjectId(id)) throw new UserNotFoundError()
 
-    const objectId = new ObjectId(id)
-
-    const user = await this.userModel.findById(objectId)
+    const user = await this.userModel.findById(id)
 
     if (!user) throw new UserNotFoundError()
   }
 
-  public async findById(id: string) {
-    const objectId = new ObjectId(id)
+  public async findById(id: string): Promise<User> {
+    const user = await this.userModel.findById(id)
 
-    const user = await this.userModel.findById(objectId)
+    if (!user) throw new UserNotFoundError()
 
     return user
   }
 
-  public async updateById(id: string, updateUserData: UserView): Promise<User> {
-    const objectId = new ObjectId(id)
+  public async updateById(id: string, updateUserData: UpdateUserView): Promise<User | null> {
+    await this.userModel.updateOne(id, updateUserData)
 
-    await this.userModel.updateOne(objectId, updateUserData)
-
-    const user = await this.userModel.findById(objectId)
-
-    if (!user) throw new UserNotFoundError()
+    const user = await this.userModel.findById(id)
 
     return user
   }
 
   public async deleteById(id: string) {
-    const objectId = new ObjectId(id)
-
-    await this.userModel.deleteOne(objectId)
+    await this.userModel.deleteOne(id)
   }
 }
