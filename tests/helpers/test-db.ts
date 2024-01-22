@@ -1,7 +1,7 @@
-import dotenv from 'dotenv'
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
 
-dotenv.config({ path: '.env' })
+dotenv.config({ path: '.env.test' })
 
 interface ConnectionConfig {
   user: string;
@@ -34,4 +34,24 @@ async function connectToDatabase(): Promise<void> {
   }
 }
 
-export { connectToDatabase }
+async function disconnectFromDatabase(): Promise<void> {
+  try {
+    await mongoose.disconnect()
+    console.log('Disconnected from the database')
+  } catch (error) {
+    console.error('Error disconnecting from the database:', error)
+  }
+}
+
+async function cleanDb(): Promise<void> {
+  const { collections } = mongoose.connection
+  const collectionsArray = Object.values(collections)
+
+  collectionsArray.forEach(async (collection) => {
+    await Promise.all([collection.deleteMany({})])
+  })
+
+  console.log('Database cleaned')
+}
+
+export { connectToDatabase, disconnectFromDatabase, cleanDb }

@@ -2,7 +2,7 @@ import {
   Model, Schema, model,
 } from 'mongoose'
 import { ObjectId } from 'mongodb'
-import { UserView } from '../interfaces/user-interface'
+import { UpdateUserView, UserView } from '../interfaces/user-interface'
 
 export default class UserModel {
   private schema: Schema
@@ -47,7 +47,7 @@ export default class UserModel {
     return this.model.findById(id)
   }
 
-  public async updateOne(id: ObjectId, user: UserView) {
+  public async updateOne(id: ObjectId, user: UpdateUserView) {
     await this.model.updateOne(
       { _id: id },
       { $set: user },

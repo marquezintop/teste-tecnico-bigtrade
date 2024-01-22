@@ -9,7 +9,7 @@ interface Post {
   updated: string;
 }
 
-interface PostView extends Omit<Post, 'id'> {}
+interface PostView extends Omit<Post, '_id'> {}
 
 interface PostCreateView extends Omit<PostView, 'published' | 'updated'> {}
 

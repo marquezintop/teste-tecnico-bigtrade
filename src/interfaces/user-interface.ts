@@ -7,6 +7,12 @@ interface User {
   password: string;
 }
 
-interface UserView extends Omit<User, 'id'> {}
+interface UpdateUserView {
+  displayName?: string;
+  email?: string;
+  password?: string;
+}
 
-export { User, UserView }
+interface UserView extends Omit<User, '_id'> {}
+
+export { User, UserView, UpdateUserView }

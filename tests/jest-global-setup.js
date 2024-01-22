@@ -1,5 +1,6 @@
-import { faker } from '@faker-js/faker'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { faker } = require('@faker-js/faker')
 
-export default async () => {
+module.exports = async () => {
   faker.seed(47247326)
 }

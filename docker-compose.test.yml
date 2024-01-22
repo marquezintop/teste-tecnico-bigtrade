@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_container_test
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongodb_data_container_test:/data/db
+    ports:
+      - 27018:27017
+
+  node:
+    build: .
+    container_name: node_app_container_test
+    ports:
+      - 3001:3000 
+    platform: linux/x86_64
+    depends_on:
+      - mongodb
+    env_file:
+      - .env.test
+
+volumes:
+  mongodb_data_container_test:
