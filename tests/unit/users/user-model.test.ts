@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import UserModel from '../../../src/models/user-model'
-import { cleanDb, connectToDatabase, disconnectFromDatabase } from '../../helpers/helpers-db'
+import { cleanDb, connectToDatabase, disconnectFromDatabase } from '../../helpers/test-db'
 import { userCreateData, userIdData } from '../../helpers/user-data'
 
 beforeAll(async () => {
