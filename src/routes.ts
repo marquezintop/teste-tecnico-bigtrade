@@ -30,5 +30,7 @@ userRouter.delete('/users/:id', (req: Request, res: Response) => userController.
 
 // posts routes
 postRouter.post('/posts', validateSchema(createPostSchema), (req: Request, res: Response) => postController.create(req, res))
+postRouter.get('/posts', (req: Request, res: Response) => postController.getAll(req, res))
+postRouter.get('/posts/:id', (req: Request, res: Response) => postController.getById(req, res))
 
 export { userRouter, postRouter }

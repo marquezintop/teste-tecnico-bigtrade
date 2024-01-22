@@ -35,7 +35,7 @@ export default class UserService {
     if (!user) throw new UserNotFoundError()
   }
 
-  public async getById(id: string) {
+  public async findById(id: string) {
     const objectId = new ObjectId(id)
 
     const user = await this.userModel.findById(objectId)

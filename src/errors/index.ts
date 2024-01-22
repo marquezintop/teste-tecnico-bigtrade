@@ -1,2 +1,3 @@
 export * from './email-already-used-error'
-export * from './invalid-user-id-error'
+export * from './user-not-found-error'
+export * from './post-not-found-error'

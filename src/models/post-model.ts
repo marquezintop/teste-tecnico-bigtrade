@@ -2,6 +2,7 @@ import {
   Model, Schema, model,
 } from 'mongoose'
 import dayjs from 'dayjs'
+import { ObjectId } from 'mongodb'
 import { PostCreateView, PostView } from '../interfaces/post-interface'
 
 export default class PostModel {
@@ -45,5 +46,13 @@ export default class PostModel {
       published: dayjs(currentDate).toISOString(),
       updated: dayjs(currentDate).toISOString(),
     })
+  }
+
+  public findAll() {
+    return this.model.find()
+  }
+
+  public findById(id: ObjectId) {
+    return this.model.findById(id)
   }
 }

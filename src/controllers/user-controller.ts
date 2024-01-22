@@ -39,7 +39,7 @@ export default class UserController {
 
       await this.userService.verifyUserExistenceById(id)
 
-      const user = await this.userService.getById(id)
+      const user = await this.userService.findById(id)
 
       return res.status(200).send(user)
     } catch (error) {
@@ -74,7 +74,7 @@ export default class UserController {
     try {
       const { id } = req.params
 
-      await this.userService.getById(id)
+      await this.userService.verifyUserExistenceById(id)
 
       await this.userService.deleteById(id)
 
