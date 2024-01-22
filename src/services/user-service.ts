@@ -6,7 +6,7 @@ import UserModel from '../models/user-model'
 
 export default class UserService {
   constructor(
-    private userModel = new UserModel(),
+    private userModel: UserModel,
   ) {}
 
   public async create(createUserData: UserView): Promise<User> {

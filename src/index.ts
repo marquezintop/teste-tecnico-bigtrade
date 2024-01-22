@@ -1,7 +1,6 @@
 import express from 'express'
 import { connectToDatabase } from './config/connection'
-import userRouter from './routes/user-route'
-import postRouter from './routes/post-route'
+import { postRouter, userRouter } from './routes'
 
 const app = express()
 

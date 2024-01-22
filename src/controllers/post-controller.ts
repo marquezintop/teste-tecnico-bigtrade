@@ -1,17 +1,17 @@
 import { Request, Response } from 'express'
-import UserService from '../services/user-service'
 import { UserNotFoundError } from '../errors'
+import PostService from '../services/post-service'
 
 export default class PostController {
   constructor(
-    private userService = new UserService(),
+    private postService: PostService,
   ) {}
 
   public async create(req: Request, res: Response): Promise<Response> {
     try {
       const { body } = req
 
-      const user = await this.userService.create(body)
+      const user = await this.postService.create(body)
 
       return res.status(201).send(user)
     } catch (error) {

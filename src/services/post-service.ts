@@ -4,8 +4,8 @@ import UserService from './user-service'
 
 export default class PostService {
   constructor(
-    private postModel = new PostModel(),
-    private userService = new UserService(),
+    private postModel: PostModel,
+    private userService: UserService,
   ) {}
 
   public async create(createPostData: PostCreateView): Promise<Post> {
