@@ -35,16 +35,67 @@ docker compose up -d
 
 O aplicativo estará acessível em http://localhost:3000.
 
+## Como executar para desenvolvimento
+
+1. Instale todas as dependências
+
+```bash
+npm i
+```
+
+3. Use o comando do docker compose
+4. Configure o arquivo `.env` utilizando o arquivo `.env.example` como referência.
+5. Execute o back-end em um ambiente de desenvolvimento:
+
+```bash
+npm run dev
+```
+
+## Como executar os testes
+
+1. Siga as etapas na última seção
+2. Configure o arquivo `.env.test` utilizando o arquivo `.env.example` como referência
+3. Execute o comando a seguir do docker para os tests:
+
+```bash
+docker compose -f docker-compose.test.yml up -d
+```
+
+4. Execute os testes:
+
+```bash
+npm run test
+```
+
+5. Para o coverage
+
+```bash
+npm run test:coverage
+```
+
+## Compilando e iniciando para produção
+
+```bash
+npm run build
+npm start
+```
+
 # Estrutura do Projeto
 
 A estrutura do projeto é organizada seguindo o padrão de arquitetura MVCS da seguinte forma:
 
 - **src/**: Contém o código-fonte da aplicação.
+  - **config/**: Configurações e inicialização do banco de dados.
   - **models/**: Modelos de dados MongoDB.
   - **services/**: Serviços que serão chamados na aplicação.
   - **controllers/**: Controladores para lidar com as operações CRUD.
+  - **interfaces/**: Interfaces TypeScript para tipos usados
+  - **errors/**: Classes de erros para clareza no código.
+  - **middlewares/**: Funções intermediárias antes de processar requisições.
+  - **schemas/**: Estruturas que definem o formato esperado dos dados em requisições.
   - **index.js**: Ponto de entrada da aplicação.
 - **docker-compose.yml**: Arquivo de configuração do Docker Compose.
+- **tests/**: Testes unitários.
 
 # API Endpoints
 
@@ -54,6 +105,7 @@ A API oferece os seguintes endpoints:
 
 - `POST /users`: Criar um novo usuário.
 - `PUT /users/:id`: Atualizar informações do usuário.
+- `GET users`: Retorna todos os dados de todos os usuários.
 - `GET /users/:id`: Retorna os dados do usuário de acordo com o id
 - `DELETE /users/:id`: Excluir um usuário.
 

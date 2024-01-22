@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "start": "node build/run-app.js",
+    "start": "node build/src/index.js",
+    "build": "npm run lint && npm run build:ts",
+    "build:ts": "tsc -p tsconfig.json",
     "dev": "nodemon -r dotenv/config src/index.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test:coverage": "jest --coverage"
