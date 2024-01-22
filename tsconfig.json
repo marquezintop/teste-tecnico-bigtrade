@@ -12,5 +12,5 @@
     "moduleResolution": "node",
     "outDir": "build"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "tests/**/*", "jest.config.js"]
 }
