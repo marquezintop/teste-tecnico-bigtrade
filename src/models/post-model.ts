@@ -66,8 +66,4 @@ export default class PostModel {
   public async deleteOne(id: string) {
     await this.model.deleteOne({ _id: id })
   }
-
-  public async deleteMany() {
-    await this.model.deleteMany({})
-  }
 }
