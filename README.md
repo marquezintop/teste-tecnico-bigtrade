@@ -72,7 +72,8 @@ npm run test
 ```bash
 npm run test:coverage
 ```
-![Screenshot from 2024-01-22 16-22-26](https://github.com/marquezintop/teste-tecnico-bigtrade/assets/121268625/2155f376-9a7c-4958-ab72-45de9f7963dc)
+![Screenshot from 2024-01-23 15-07-08](https://github.com/marquezintop/teste-tecnico-bigtrade/assets/121268625/f8e05a25-fd6b-4626-80e5-85f2cd376b19)
+
 
 ## Compilando e iniciando para produção
 
@@ -97,6 +98,11 @@ A estrutura do projeto é organizada seguindo o padrão de arquitetura MVCS da s
   - **schemas/**: Estruturas que definem o formato esperado dos dados em requisições.
   - **index.js**: Ponto de entrada da aplicação.
 - **docker-compose.yml**: Arquivo de configuração do Docker Compose.
+- **docker-compose.test.yml**: Arquivo de configuração do Docker Compose para testes.
+- **.eslintrc.json**: Arquvio de configuração para o ESLint.
+- **jest.config.js**: Arquivo de configuração para o Jest.
+- **.env.example**: Arquivo .env de exemplo para uso no .env ou .env.test.
+- **tsconfig.json**: Arquivo de configuração do Typescript.
 - **tests/**: Testes unitários.
 
 # API Endpoints
