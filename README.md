@@ -43,9 +43,9 @@ O aplicativo estará acessível em http://localhost:3000.
 npm i
 ```
 
+2. Configure o arquivo `.env` utilizando o arquivo `.env.example` como referência.
 3. Use o comando do docker compose
-4. Configure o arquivo `.env` utilizando o arquivo `.env.example` como referência.
-5. Execute o back-end em um ambiente de desenvolvimento:
+4. Execute o back-end em um ambiente de desenvolvimento:
 
 ```bash
 npm run dev
@@ -55,7 +55,7 @@ npm run dev
 
 1. Siga as etapas na última seção
 2. Configure o arquivo `.env.test` utilizando o arquivo `.env.example` como referência
-3. Execute o comando a seguir do docker para os tests:
+3. Execute o comando a seguir do docker para os testes:
 
 ```bash
 docker compose -f docker-compose.test.yml up -d
@@ -72,6 +72,7 @@ npm run test
 ```bash
 npm run test:coverage
 ```
+![Screenshot from 2024-01-22 16-22-26](https://github.com/marquezintop/teste-tecnico-bigtrade/assets/121268625/2155f376-9a7c-4958-ab72-45de9f7963dc)
 
 ## Compilando e iniciando para produção
 
@@ -79,6 +80,7 @@ npm run test:coverage
 npm run build
 npm start
 ```
+
 
 # Estrutura do Projeto
 
