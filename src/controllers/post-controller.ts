@@ -80,7 +80,7 @@ export default class PostController {
 
       return res.sendStatus(200)
     } catch (error) {
-      if (error instanceof UserNotFoundError) {
+      if (error instanceof PostNotFoundError) {
         return res.status(404).send({ error: error.message })
       }
 

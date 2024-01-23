@@ -1,15 +1,7 @@
-import express from 'express'
+import { app } from './app'
 import { connectToDatabase } from './config/connection'
-import { postRouter, userRouter } from './routes'
-
-const app = express()
-
-app.use(express.json())
 
 const PORT = process.env.PORT || 3000
-
-app.use(userRouter)
-app.use(postRouter)
 
 connectToDatabase()
 
